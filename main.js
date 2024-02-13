@@ -538,41 +538,46 @@ map.on("load", () => {
                 "properties": {},
                 "geometry": {
                   "coordinates": [
-                    -73.94775251604139,
-                    40.63326473511427
+                    [
+                      [
+                        -73.92257362728029,
+                        40.632518371074326
+                      ],
+                      [
+                        -73.92258056261741,
+                        40.632619688365395
+                      ],
+                      [
+                        -73.92297067531663,
+                        40.63259731962617
+                      ],
+                      [
+                        -73.92295507080863,
+                        40.63249994973236
+                      ],
+                      [
+                        -73.92257362728029,
+                        40.632518371074326
+                      ]
+                    ]
                   ],
-                  "type": "Point"
-                }
-              },
-              {
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                  "coordinates": [
-                    -73.92258072874608,
-                    40.632701531700775
-                  ],
-                  "type": "Point"
+                  "type": "Polygon"
                 }
               }
             ]
           }
     });
-      
+    
     var i = 0;
     const interval = setInterval(function() {
-        if (i!=0 && i%12==0)
+        if (i==11)
         {
             for (var j=1; j!=12; ++j)
             {
-                map.removeLayer({
-                    'id': `${i%12}-geojson-lyr-inner`
-                });
-                map.removeLayer({
-                    'id': `${i%12}-geojson-lyr-border`
-                });
-
+                map.removeLayer(`${j}-geojson-lyr-inner`);
+                map.removeLayer(`${j}-geojson-lyr-border`);
             }
+            i=0;
         }
 
         // add polygon, taken steaight from link in source
@@ -584,7 +589,7 @@ map.on("load", () => {
             'layout': {},
             'paint': {
                 'fill-color': '#0080ff',
-                'fill-opacity': 0.5
+                'fill-opacity': 0.15 // basemap should be visible with multiple layers
             }
         });
         map.addLayer({
@@ -594,10 +599,10 @@ map.on("load", () => {
             'layout': {},
             'paint': {
                 'line-color': '#000',
-                'line-width': 3
+                'line-width': 2
             }
         });
-        console.log('done')
         i += 1;
     }, 2000); // execute on intermal every 2000 ms (2 seconds)
+    
 });
